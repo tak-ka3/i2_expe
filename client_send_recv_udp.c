@@ -22,15 +22,26 @@ int main(int argc, char* argv[]){
 	// 読み取ったデータの途中にファイルの終了がある場合も
 	// 出力する時に、読み取ったデータを全部出力するため、途中にファイルの終了があってもそれ以後も出力する
 	// 考えられる実装は、読み取るデータの数に満たない場合（最後の読み取り時）だけ、一つずつ読み取りファイルの終了がきたら終了するようにする。
-	char data[1];
-	int N = 1;
-	while (1){
-		int n2 = recv(s, data, N, 0);
-		if (n2 == 0){
-			break;
-		}
-
-	printf("%s", data);
+	int N = 1000;
+	char data[N];
+  int cnt = 0;
+	while (cnt < 1){
+    char* input = gets(data);
+		int n2 = send(s, data, N, 0);
+    int t = 0;
+		for (int i = 0; i < N; i++){
+      if (data[i] == 1){
+        t += 1;
+      }
+      else{
+        break;
+      }
+    }
+    if (t == N){
+      break;
+    }
+	  printf("%s", data);
+    cnt++;
 	}
 	// int n2 = recv(s, data, N, 0);
 	// int n = send(s, data, N, 0); // これも付け加えることで、相手サーバーにもデータを送りつけることができる。
