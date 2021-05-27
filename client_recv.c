@@ -20,6 +20,15 @@ int main(int argc, char* argv[]){
 
 	char data[100];
 	int N = 100;
+	while (1){
+		int n2 = recv(s, data, N, 0);
+		if (n2 == 0){
+			break;
+		}
+		else{
+			int n1 = send(s, data, N, 0);
+		}
+	}
 	int n2 = recv(s, data, N, 0);
 	printf("%s", data);
 	// int n = send(s, data, N, 0);
