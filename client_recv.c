@@ -20,8 +20,9 @@ int main(int argc, char* argv[]){
 
 	char data[100];
 	int N = 100;
+	int n2 = recv(s, data, N, 0);
 	int n = send(s, data, N, 0);
 
-	// int n2 = recv(s, data, N, 0);
+
 	shutdown(s, SHUT_WR);
 }
