@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
 	char* port = argv[2];
   int s = socket(PF_INET, SOCK_DGRAM, 0);
   if (s == -1){
-    printf("socket is failed\n");
+    
   }
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
