@@ -16,9 +16,8 @@ void die(char *a){
 
 int main(int argc, char* argv[]){
 	int s = socket(PF_INET, SOCK_STREAM, 0);
-	if (s == -1){
-		die("socket\n");
-	}
+	if (s == -1) die("socket\n");
+	
 
 	char* ip_add = argv[1];
 	char* port = argv[2];
@@ -27,9 +26,7 @@ int main(int argc, char* argv[]){
 	addr.sin_addr.s_addr = inet_addr(ip_add);
 	addr.sin_port = htons(atoi(port));
 	int ret = connect(s,  (struct sockaddr *) &addr, sizeof(addr));
-	if (ret == -1){
-		die("connect\n");
-	}
+	if (ret == -1) die("connect\n");
 
 	// 読み取ったデータの途中にファイルの終了がある場合も
 	// 出力する時に、読み取ったデータを全部出力するため、途中にファイルの終了があってもそれ以後も出力する
@@ -57,11 +54,9 @@ int main(int argc, char* argv[]){
 	// こっちは受け取ったら標準出力するパターン
 	while(1){
     int n = read(s, data, N);
-    if(n == -1){
-      die("read");
-    }else if(n == 0){
-      break;
-    }
+    if(n == -1) die("read");
+    else if(n == 0) break;
+    
     for(int j = 0;j < n; j++){
       printf("%c", data[j]);
     }
