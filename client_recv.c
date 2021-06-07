@@ -29,8 +29,8 @@ int main(int argc, char* argv[]){
 		if (n2 == 0){
 			break;
 		}
-
-	printf("%s", data);
+		printf("%s", data);
+		// write(s, data, N);
 	}
 	// int n2 = recv(s, data, N, 0);
 	// int n = send(s, data, N, 0); // これも付け加えることで、相手サーバーにもデータを送りつけることができる。
