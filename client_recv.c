@@ -36,18 +36,37 @@ int main(int argc, char* argv[]){
 	// 考えられる実装は、読み取るデータの数に満たない場合（最後の読み取り時）だけ、一つずつ読み取りファイルの終了がきたら終了するようにする。
 	int N = 100;
 	unsigned char data[N];
-	while (1){
-		int n2 = recv(s, data, N, 0);
-		if (n2 == -1){
-			die("recv\n");
-		}else if (n2 == 0){
-			break;
-		}
-		printf("%s", data);
-		// write(s, data, N);
-	}
+
+	// こっちは受け取ってから相手に送るパターン
+	// while (1){
+	// 	int n2 = recv(s, data, N, 0);
+	// 	if (n2 == -1){
+	// 		die("recv\n");
+	// 	}else if (n2 == 0){
+	// 		break;
+	// 	}
+	// 	int m = write(s, data, n2);
+  //   if(m == -1){
+  //     die("write");
+  //   } 
+	// 	// write(s, data, N);
+	// }
 	// int n2 = recv(s, data, N, 0);
 	// int n = send(s, data, N, 0); // これも付け加えることで、相手サーバーにもデータを送りつけることができる。
+
+	// こっちは受け取ったら標準出力するパターン
+	while(1){
+    int n = read(s, data, N);
+    if(n == -1){
+      die("read");
+    }else if(n == 0){
+      break;
+    }
+    for(int j = 0;j < n; j++){
+      printf("%c", data[j]);
+    }
+  }
+
 
 	close(s);
 	shutdown(s, SHUT_WR);
