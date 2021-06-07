@@ -1,0 +1,2 @@
+#!/bin/bash
+./serv_send2 50000
