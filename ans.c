@@ -1,3 +1,4 @@
+// UDPでクライアントを作る：選択課題6.2
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
@@ -9,6 +10,11 @@
 #include <string.h>
 #include <unistd.h>
 #define N 10000
+
+void die(char *a){
+	perror(a);
+	exit(1);
+}
 
 int check(unsigned char *data){
 	int k = 0;
@@ -30,28 +36,25 @@ int main(int argc, char* argv[]){
 	char* port = argv[2];
   int s = socket(PF_INET, SOCK_DGRAM, 0);
   if (s == -1){
-    
+    die("socket");
   }
 	struct sockaddr_in addr;
 	addr.sin_family = AF_INET;
-  int c = inet_aton(argv[1], &addr.sin_addr);
+  int c = inet_aton(ip_add, &addr.sin_addr);
   if (c == 0){
-    perror("inet_aton is failed\n");
+    die("inet_aton");
   }
-	// addr.sin_addr.s_addr = inet_addr(ip_add);
 	addr.sin_port = htons(atoi(port));
   unsigned char k = '1';
   int m = sendto(s, &k, 1, 0, (struct sockaddr*)&addr, sizeof(addr));
   if (m == -1){
-    perror("send error");
-    exit(1);
+    die("send error");
   }
 
 	while (1){
     int n = recvfrom(s, data, N, 0, NULL, 0);
     if (n == -1){
-      perror("recv");
-      exit(1);
+      die("recv");
     }
     if (n == 0){
       break;
